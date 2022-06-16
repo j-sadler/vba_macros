@@ -1,0 +1,363 @@
+Option Explicit
+
+Sub copyData()
+
+Dim subProject As String
+Dim accountGroup As String
+Dim Program As String
+Dim OMB_ITproject As String
+
+
+'Sub-project Col F to X2
+subProject = Workbooks("hollyMacroTest.xlsm").Sheets("bluh").Range("F2").Value
+Workbooks("hollyMacroTest2.xlsx").Sheets("PROGRAM PAGE").Range("X2").Value = subProject
+'Debug.Print subProject
+
+'ACCOUNT GROUP Col B to X4
+subProject = Workbooks("hollyMacroTest.xlsm").Sheets("bluh").Range("B2").Value
+Workbooks("hollyMacroTest2.xlsx").Sheets("PROGRAM PAGE").Range("X4").Value = subProject
+
+'PROGRAM Col C to X5
+subProject = Workbooks("hollyMacroTest.xlsm").Sheets("bluh").Range("C2").Value
+Workbooks("hollyMacroTest2.xlsx").Sheets("PROGRAM PAGE").Range("X5").Value = subProject
+
+'OMB-IT-PROJECT Col E to X6
+subProject = Workbooks("hollyMacroTest.xlsm").Sheets("bluh").Range("E2").Value
+Workbooks("hollyMacroTest2.xlsx").Sheets("PROGRAM PAGE").Range("X6").Value = subProject
+
+End Sub
+
+Sub saveWB()
+
+Workbooks("hollyMacroTest2.xlsx").SaveAs Filename:= _
+"C:\Users\OITCOSadleJ\OneDrive - Department of Veterans Affairs\Documents\Hollys Macro\files\newTest.xlsx"
+
+ 
+End Sub
+
+Sub opnFile()
+
+Application.Workbooks.Open Filename:="C:\Users\OITCOSadleJ\OneDrive - Department of Veterans Affairs\Documents\Hollys Macro\hollyMacroTest2.xlsx"
+
+End Sub
+
+Sub copysaveloop()
+
+Dim subProject As String
+Dim PrevSubProject As String
+Dim accountGroup As String
+Dim Program As String
+Dim OMB_ITproject As String
+Dim i As Long
+
+
+
+For i = 2 To 10
+
+    
+    
+    'Open the workbook
+    Application.Workbooks.Open Filename:="C:\Users\OITCOSadleJ\OneDrive - Department of Veterans Affairs\Documents\Hollys Macro\hollyMacroTest2.xlsx"
+    
+    
+    'Sub-project Col F to X2
+    subProject = Workbooks("hollyMacroTest.xlsm").Sheets("bluh").Range("F" & i).Value
+    Workbooks("hollyMacroTest2.xlsx").Sheets("PROGRAM PAGE").Range("X2").Value = subProject
+        'Debug.Print subProject
+    PrevSubProject = Workbooks("hollyMacroTest.xlsm").Sheets("bluh").Range("F" & i - 1).Value
+    
+    If subProject <> PrevSubProject Then
+        'ACCOUNT GROUP Col B to X4
+        subProject = Workbooks("hollyMacroTest.xlsm").Sheets("bluh").Range("B" & i).Value
+        Workbooks("hollyMacroTest2.xlsx").Sheets("PROGRAM PAGE").Range("X4").Value = subProject
+        'PROGRAM Col C to X5
+        subProject = Workbooks("hollyMacroTest.xlsm").Sheets("bluh").Range("C" & i).Value
+        Workbooks("hollyMacroTest2.xlsx").Sheets("PROGRAM PAGE").Range("X5").Value = subProject
+        'OMB-IT-PROJECT Col E to X6
+        subProject = Workbooks("hollyMacroTest.xlsm").Sheets("bluh").Range("E" & i).Value
+        Workbooks("hollyMacroTest2.xlsx").Sheets("PROGRAM PAGE").Range("X6").Value = subProject
+        
+        'Save The Workbook
+        Workbooks("hollyMacroTest2.xlsx").SaveAs Filename:= _
+        "C:\Users\OITCOSadleJ\OneDrive - Department of Veterans Affairs\Documents\Hollys Macro\files\newTest" & i & ".xlsx"
+    End If
+    
+Next i
+ 
+
+
+
+
+End Sub
+
+Sub copysaveloop2()
+
+Dim subProject As String
+Dim PrevSubProject As String
+Dim AccGroup As String
+Dim Program As String
+Dim OMB_ITprogect As String
+Dim i As Long
+
+'find and replace / with _ in Col F
+
+
+For i = 2 To 10
+
+
+    'Sub-project Col F to X2
+    subProject = Workbooks("hollyMacroTest.xlsm").Sheets("bluh").Range("F" & i).Value
+    PrevSubProject = Workbooks("hollyMacroTest.xlsm").Sheets("bluh").Range("F" & i - 1).Value
+    'ACCOUNT GROUP Col B to X4
+    AccGroup = Workbooks("hollyMacroTest.xlsm").Sheets("bluh").Range("B" & i).Value
+    'PROGRAM Col C to X5
+    Program = Workbooks("hollyMacroTest.xlsm").Sheets("bluh").Range("C" & i).Value
+    'OMB-IT-PROJECT Col E to X6
+    OMB_ITprogect = Workbooks("hollyMacroTest.xlsm").Sheets("bluh").Range("E" & i).Value
+        
+
+    If i = 2 Then
+        
+    
+        'Open the workbook
+        Application.Workbooks.Open Filename:="C:\Users\OITCOSadleJ\OneDrive - Department of Veterans Affairs\Documents\Hollys Macro\hollyMacroTest2.xlsx"
+        
+        'Sub-project Col F to X2
+        Workbooks("hollyMacroTest2.xlsx").Sheets("PROGRAM PAGE").Range("X2").Value = subProject
+            'Debug.Print subProject
+                
+        'ACCOUNT GROUP Col B to X4
+        Workbooks("hollyMacroTest2.xlsx").Sheets("PROGRAM PAGE").Range("X4").Value = AccGroup
+        'PROGRAM Col C to X5
+        Workbooks("hollyMacroTest2.xlsx").Sheets("PROGRAM PAGE").Range("X5").Value = Program
+        'OMB-IT-PROJECT Col E to X6
+        Workbooks("hollyMacroTest2.xlsx").Sheets("PROGRAM PAGE").Range("X6").Value = OMB_ITprogect
+            
+        'Save The Workbook
+        Debug.Print subProject
+        Debug.Print PrevSubProject
+        Workbooks("hollyMacroTest2.xlsx").SaveAs Filename:= _
+        "C:\Users\OITCOSadleJ\OneDrive - Department of Veterans Affairs\Documents\Hollys Macro\files\" & subProject & ".xlsx"
+    End If
+    
+    If i > 2 Then
+        
+        If subProject <> PrevSubProject Then
+            'Sub-project Col F to X2
+            ActiveWorkbook.Sheets("PROGRAM PAGE").Range("X2").Value = subProject
+            'ACCOUNT GROUP Col B to X4
+            ActiveWorkbook.Sheets("PROGRAM PAGE").Range("X4").Value = AccGroup
+            'PROGRAM Col C to X5
+            ActiveWorkbook.Sheets("PROGRAM PAGE").Range("X5").Value = Program
+            'OMB-IT-PROJECT Col E to X6
+            'Workbooks(PrevSubProject & ".xlsx").Sheets("PROGRAM PAGE").Range("X6").Value = OMB_ITprogect
+            ActiveWorkbook.Sheets("PROGRAM PAGE").Range("X6").Value = OMB_ITprogect
+            
+            
+            'Save The Workbook
+            Debug.Print subProject
+            Debug.Print PrevSubProject
+            Workbooks(PrevSubProject & ".xlsx").SaveAs Filename:= _
+            "C:\Users\OITCOSadleJ\OneDrive - Department of Veterans Affairs\Documents\Hollys Macro\files\" & subProject & ".xlsx"
+            
+           
+        End If
+    
+    End If
+'Debug.Print subProject
+'Debug.Print PrevSubProject
+'ActiveWorkbook.SaveAs Filename:= _
+'"C:\Users\OITCOSadleJ\OneDrive - Department of Veterans Affairs\Documents\Hollys Macro\files\" & subProject & ".xlsx"
+Next i
+
+End Sub
+
+Sub DataPrep()
+'
+' Macro1 Macro
+'
+
+'
+    Workbooks("Health working List.xlsx").Activate
+    Sheets("Health Data").Columns("F:F").Select
+    Selection.Replace What:="\", Replacement:="_", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False, FormulaVersion:=xlReplaceFormula2
+    Selection.Replace What:="/", Replacement:="_", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False, FormulaVersion:=xlReplaceFormula2
+        Selection.Replace What:="|", Replacement:="_", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False, FormulaVersion:=xlReplaceFormula2
+    'Rows("1:1").Select
+    'Selection.AutoFilter
+    'ActiveWorkbook.Worksheets("Health Data").AutoFilter.Sort.SortFields.Clear
+    'ActiveWorkbook.Worksheets("Health Data").AutoFilter.Sort Key:=Range("F1"), SortOn:=xlSortOnValues, Order1:=xlAscending, DataOption:=xlSortNormal
+
+End Sub
+
+
+Sub copysaveloop3()
+
+Dim subProject As String
+Dim PrevSubProject As String
+Dim AccGroup As String
+Dim Program As String
+Dim OMB_ITprogect As String
+Dim i As Long
+
+'find and replace / with _ in Col F
+
+
+For i = 2 To 392
+
+
+    'Sub-project Col F to X2
+    subProject = Workbooks("Health working List.xlsx").Sheets("Health Data").Range("F" & i).Value
+    PrevSubProject = Workbooks("Health working List.xlsx").Sheets("Health Data").Range("F" & i - 1).Value
+    'ACCOUNT GROUP Col B to X4
+    AccGroup = Workbooks("Health working List.xlsx").Sheets("Health Data").Range("B" & i).Value
+    'PROGRAM Col C to X5
+    Program = Workbooks("Health working List.xlsx").Sheets("Health Data").Range("C" & i).Value
+    'OMB-IT-PROJECT Col E to X6
+    OMB_ITprogect = Workbooks("Health working List.xlsx").Sheets("Health Data").Range("E" & i).Value
+        
+
+    If i = 2 Then
+        
+    
+        'Open the workbook
+        Application.Workbooks.Open Filename:="C:\Users\OITCOSadleJ\OneDrive - Department of Veterans Affairs\Documents\Hollys Macro\Copy of CPIC Pilot Templates v01r06 DRAFT.xlsx"
+        
+        'Sub-project Col F to X2
+        Workbooks("Copy of CPIC Pilot Templates v01r06 DRAFT.xlsx").Sheets("PROGRAM PAGE").Range("X2").Value = subProject
+            'Debug.Print subProject
+                
+        'ACCOUNT GROUP Col B to X4
+        Workbooks("Copy of CPIC Pilot Templates v01r06 DRAFT.xlsx").Sheets("PROGRAM PAGE").Range("X4").Value = AccGroup
+        'PROGRAM Col C to X5
+        Workbooks("Copy of CPIC Pilot Templates v01r06 DRAFT.xlsx").Sheets("PROGRAM PAGE").Range("X5").Value = Program
+        'OMB-IT-PROJECT Col E to X6
+        Workbooks("Copy of CPIC Pilot Templates v01r06 DRAFT.xlsx").Sheets("PROGRAM PAGE").Range("X6").Value = OMB_ITprogect
+            
+        'Save The Workbook
+        Debug.Print subProject
+        Debug.Print PrevSubProject
+        Workbooks("Copy of CPIC Pilot Templates v01r06 DRAFT.xlsx").SaveAs Filename:= _
+        "C:\Users\OITCOSadleJ\OneDrive - Department of Veterans Affairs\Documents\Hollys Macro\files\" & subProject & ".xlsx"
+    End If
+    
+    If i > 2 Then
+        
+        If subProject <> PrevSubProject Then
+            'Sub-project Col F to X2
+            ActiveWorkbook.Sheets("PROGRAM PAGE").Range("X2").Value = subProject
+            'ACCOUNT GROUP Col B to X4
+            ActiveWorkbook.Sheets("PROGRAM PAGE").Range("X4").Value = AccGroup
+            'PROGRAM Col C to X5
+            ActiveWorkbook.Sheets("PROGRAM PAGE").Range("X5").Value = Program
+            'OMB-IT-PROJECT Col E to X6
+            'Workbooks(PrevSubProject & ".xlsx").Sheets("PROGRAM PAGE").Range("X6").Value = OMB_ITprogect
+            ActiveWorkbook.Sheets("PROGRAM PAGE").Range("X6").Value = OMB_ITprogect
+            
+            
+            'Save The Workbook
+            Debug.Print subProject
+            Debug.Print PrevSubProject
+            Workbooks(PrevSubProject & ".xlsx").SaveAs Filename:= _
+            "C:\Users\OITCOSadleJ\OneDrive - Department of Veterans Affairs\Documents\Hollys Macro\files\" & subProject & ".xlsx"
+            
+           
+        End If
+    
+    End If
+'Debug.Print subProject
+'Debug.Print PrevSubProject
+'ActiveWorkbook.SaveAs Filename:= _
+'"C:\Users\OITCOSadleJ\OneDrive - Department of Veterans Affairs\Documents\Hollys Macro\files\" & subProject & ".xlsx"
+Next i
+
+End Sub
+
+Sub copysaveloopCorp()
+
+Dim subProject As String
+Dim PrevSubProject As String
+Dim AccGroup As String
+Dim Program As String
+Dim OMB_ITprogect As String
+Dim i As Long
+
+'find and replace / with _ in Col F
+
+
+For i = 2 To 392
+
+
+    'Sub-project Col F to X2
+    subProject = Workbooks("Health working List.xlsx").Sheets("Health Data").Range("F" & i).Value
+    PrevSubProject = Workbooks("Health working List.xlsx").Sheets("Health Data").Range("F" & i - 1).Value
+    'ACCOUNT GROUP Col B to X4
+    AccGroup = Workbooks("Health working List.xlsx").Sheets("Health Data").Range("B" & i).Value
+    'PROGRAM Col C to X5
+    Program = Workbooks("Health working List.xlsx").Sheets("Health Data").Range("C" & i).Value
+    'OMB-IT-PROJECT Col E to X6
+    OMB_ITprogect = Workbooks("Health working List.xlsx").Sheets("Health Data").Range("E" & i).Value
+        
+
+    If i = 2 Then
+        
+    
+        'Open the workbook
+        Application.Workbooks.Open Filename:="C:\Users\OITCOSadleJ\OneDrive - Department of Veterans Affairs\Documents\Hollys Macro\Copy of CPIC Pilot Templates v01r06 DRAFT.xlsx"
+        
+        'Sub-project Col F to X2
+        Workbooks("Copy of CPIC Pilot Templates v01r06 DRAFT.xlsx").Sheets("PROGRAM PAGE").Range("X2").Value = subProject
+            'Debug.Print subProject
+                
+        'ACCOUNT GROUP Col B to X4
+        Workbooks("Copy of CPIC Pilot Templates v01r06 DRAFT.xlsx").Sheets("PROGRAM PAGE").Range("X4").Value = AccGroup
+        'PROGRAM Col C to X5
+        Workbooks("Copy of CPIC Pilot Templates v01r06 DRAFT.xlsx").Sheets("PROGRAM PAGE").Range("X5").Value = Program
+        'OMB-IT-PROJECT Col E to X6
+        Workbooks("Copy of CPIC Pilot Templates v01r06 DRAFT.xlsx").Sheets("PROGRAM PAGE").Range("X6").Value = OMB_ITprogect
+            
+        'Save The Workbook
+        Debug.Print subProject
+        Debug.Print PrevSubProject
+        Workbooks("Copy of CPIC Pilot Templates v01r06 DRAFT.xlsx").SaveAs Filename:= _
+        "C:\Users\OITCOSadleJ\OneDrive - Department of Veterans Affairs\Documents\Hollys Macro\files\" & subProject & ".xlsx"
+    End If
+    
+    If i > 2 Then
+        
+        If subProject <> PrevSubProject Then
+            'Sub-project Col F to X2
+            ActiveWorkbook.Sheets("PROGRAM PAGE").Range("X2").Value = subProject
+            'ACCOUNT GROUP Col B to X4
+            ActiveWorkbook.Sheets("PROGRAM PAGE").Range("X4").Value = AccGroup
+            'PROGRAM Col C to X5
+            ActiveWorkbook.Sheets("PROGRAM PAGE").Range("X5").Value = Program
+            'OMB-IT-PROJECT Col E to X6
+            'Workbooks(PrevSubProject & ".xlsx").Sheets("PROGRAM PAGE").Range("X6").Value = OMB_ITprogect
+            ActiveWorkbook.Sheets("PROGRAM PAGE").Range("X6").Value = OMB_ITprogect
+            
+            
+            'Save The Workbook
+            Debug.Print subProject
+            Debug.Print PrevSubProject
+            Workbooks(PrevSubProject & ".xlsx").SaveAs Filename:= _
+            "C:\Users\OITCOSadleJ\OneDrive - Department of Veterans Affairs\Documents\Hollys Macro\files\" & subProject & ".xlsx"
+            
+           
+        End If
+    
+    End If
+'Debug.Print subProject
+'Debug.Print PrevSubProject
+'ActiveWorkbook.SaveAs Filename:= _
+'"C:\Users\OITCOSadleJ\OneDrive - Department of Veterans Affairs\Documents\Hollys Macro\files\" & subProject & ".xlsx"
+Next i
+
+End Sub
+
